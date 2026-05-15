@@ -2,15 +2,17 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Lendo o arquivo Excel
-dados = pd.read_excel("dados.xlsx")
+dados = pd.read_excel("assets/dados.xlsx")
 
 # Separando as colunas
 periodo = dados["Periodo"]
 valor = dados["Valor"]
 
 # Criando o gráfico
-plt.figure(figsize=(10, 5))
-plt.plot(periodo, valor, marker="o")
+plt.figure(figsize=(12, 6)) # cria uma janela com a gráfico
+# plt.plot(periodo, valor, marker="o")
+# plt.bar(periodo,valor) # gráfico de barras
+plt.fill_between(periodo,valor)
 
 
 # Deixando as legendas do eixo X na vertical
