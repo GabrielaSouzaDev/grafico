@@ -1,8 +1,11 @@
 from ast import main
-from os import system
+from os import link, system
 
 import customtkinter as ctk
 import matplotlib.pyplot as plt
+import pandas as pd
+
+
 
 ctk.set_appearance_mode('system')
 ctk.set_default_color_theme('blue')
@@ -15,9 +18,47 @@ app.title('Gerador de Gráficos')
 app.iconbitmap('assets/grafico.ico')
 
 
+def buscar():
+    link = excelEntrada.get()
+    if link:
+        try:
+            dados = pd.read_excel(link)
+            periodo = dados["Periodo"]
+            valor = dados["Valor"]
+            plt.figure(figsize=(12, 6))
+            plt.fill_between(periodo, valor)
+            plt.xticks(rotation=90)
+            plt.title("Evolução dos Valores ao Longo do Tempo")
+            plt.xlabel("Período")
+            plt.ylabel("Valor")
+            plt.grid(axis="y")
+            plt.tight_layout()
+            plt.show()
+        except Exception as e:
+            print(f"Erro ao ler o arquivo: {e}")
+    else:
+        print("Por favor, insira o caminho do arquivo Excel.")
 
-
-
+def gerar_grafico():
+    link = excelEntrada.get()
+    if link:
+        try:
+            dados = pd.read_excel(link)
+            periodo = dados["Periodo"]
+            valor = dados["Valor"]
+            plt.figure(figsize=(12, 6))
+            plt.fill_between(periodo, valor)
+            plt.xticks(rotation=90)
+            plt.title("Evolução dos Valores ao Longo do Tempo")
+            plt.xlabel("Período")
+            plt.ylabel("Valor")
+            plt.grid(axis="y")
+            plt.tight_layout()
+            plt.show()
+        except Exception as e:
+            print(f"Erro ao ler o arquivo: {e}")
+    else:
+        print("Por favor, insira o caminho do arquivo Excel.")
 
 
 
@@ -35,7 +76,7 @@ excelEntrada.pack(pady=30, padx=20)
 
 botaoBuscar = ctk.CTkButton(app, 
                             text='Buscar Excel',
-                            # command=buscar,
+                            command=buscar,
                             corner_radius=10,
                             fg_color='#007ACC',
                             hover_color='#005A9E',
@@ -46,7 +87,7 @@ botaoBuscar.pack(pady=20)
 
 botaoGerar = ctk.CTkButton(app, 
                             text='Gerar Gráfico',
-                            # command=gerar_grafico,
+                            command=gerar_grafico,
                             corner_radius=10,
                             fg_color='#007ACC',
                             hover_color='#005A9E',
